@@ -190,6 +190,10 @@ def S1toS3():
     # initialize the total_bit to 0
     total_bit = 0
 
+    # priority of three different stages increases
+    # total < 20MB, policy priority = 32765
+    # 20MB <= total <= 30MB, policy priority = 32766
+    # 30MB < total, total priority = 32767
     while total_bit <= 30 * 1024 * 1024:
         # obtain response from swtich through rest api
         response = flowget.get("00:00:00:00:00:00:00:01")
@@ -207,6 +211,7 @@ def S1toS3():
 
             # policy for S1 from h1 to h3
             # 1Mbps
+            print "1Mbps"
             pusher.set({
                 'switch': "00:00:00:00:00:00:00:01",
                 "name": "S1Limit1Mh1toh3",
@@ -241,6 +246,7 @@ def S1toS3():
         elif total_bit >= 20 * 1024 * 1024 and total_bit <= 30 * 1024 * 1024:
             # policy for S1 from h1 to h3
             # 512Kbps
+            print "521Kbps"
             pusher.set({
                 'switch': "00:00:00:00:00:00:00:01",
                 "name": "S1Limit512Kh1toh3",
@@ -275,6 +281,7 @@ def S1toS3():
         else:
             # policy for S1 from h1 to h3
             # drop
+            print "Drop"
             pusher.set({
                 'switch': "00:00:00:00:00:00:00:01",
                 "name": "S1Droph1toh3",
