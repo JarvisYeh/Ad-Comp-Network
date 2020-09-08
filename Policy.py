@@ -238,7 +238,7 @@ def S1toS3():
                 "active": "true",
                 "actions": "output=1, set_queue=1"
             }) 
-        else if total_bit >= 20 * 1024 * 1024 and total_bit <= 30 * 1024 * 1024:
+        elif total_bit >= 20 * 1024 * 1024 and total_bit <= 30 * 1024 * 1024:
             # policy for S1 from h1 to h3
             # 512Kbps
             pusher.set({
@@ -308,12 +308,7 @@ def S1toS3():
             })
 
 def checkMatch(head):
-    return \
-        if head["eth_type"] == "0x800" \
-        and head["ip_proto"] == "0x06" \
-        and head["ipv4_src"] == "10.0.0.1" \
-        and head["ipv4_dst"] == "10.0.0.3" \
-        and head["tcp_dst"] == "80"
+    return if head["eth_type"] == "0x800" and head["ip_proto"] == "0x06" and head["ipv4_src"] == "10.0.0.1" and head["ipv4_dst"] == "10.0.0.3" and head["tcp_dst"] == "80"
 
 
 def staticForwarding():
