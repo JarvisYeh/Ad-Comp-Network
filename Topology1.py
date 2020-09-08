@@ -20,7 +20,7 @@ import subprocess
 import os
 
 
-myBandwidth = 10
+myBandwidth = 100000
 myDelay = '100ms'
 myQueueSize = 1000
 myLossPercentage = 0
