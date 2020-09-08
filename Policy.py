@@ -187,7 +187,133 @@ def S2toS3():
 
 # To insert the policies for the traffic applicable to path between S1 and S3
 def S1toS3():
-    pass
+    # initialize the total_bit to 0
+    total_bit = 0
+
+    while total_bit <= 30 * 1024 * 1024:
+        # obtain response from swtich through rest api
+        response = flowget.get("00:00:00:00:00:00:00:01")
+        flows = response["flows"]
+
+        # sum up target flows size
+        for i in range(len(respon["flows"])):
+            flow_head = flows[i]["match"]
+            if checkMatch(flow_head):
+                total_bit += int(flows[i]["byteCount"]) * 8
+        
+        if total_bit < 20 * 1024 * 1024:
+            # for http request (tcp destination port 8080)
+            # use tcp_dst has the prerequisite ip_proto=0x06
+
+            # policy for S1 from h1 to h3
+            # 1Mbps
+            pusher.set({
+                'switch': "00:00:00:00:00:00:00:01",
+                "name": "S1Limit1Mh1toh3",
+                "cookie": "0",
+                "priority": "32765",
+                "in_port": "1",
+                "eth_type": "0x800",
+                "ipv4_src": "10.0.0.1",
+                "ipv4_dst": "10.0.0.3",
+                "ip_proto": "0x06",
+                "tcp_dst": "80",
+                "active": "true",
+                "actions": "output=3, set_queue=1"
+            })
+
+            # policy for S3 from h1 to h3
+            # 1Mbps
+            pusher.set({
+                'switch': "00:00:00:00:00:00:00:03",
+                "name": "S3Limit1Mh1toh3",
+                "cookie": "0",
+                "priority": "32766",
+                "in_port": "2",
+                "eth_type": "0x800",
+                "ipv4_src": "10.0.0.1",
+                "ipv4_dst": "10.0.0.3",
+                "ip_proto": "0x06",
+                "tcp_dst": "80",
+                "active": "true",
+                "actions": "output=1, set_queue=1"
+            }) 
+        else if total_bit >= 20 * 1024 * 1024 and total_bit <= 30 * 1024 * 1024:
+            # policy for S1 from h1 to h3
+            # 512Kbps
+            pusher.set({
+                'switch': "00:00:00:00:00:00:00:01",
+                "name": "S1Limit512Kh1toh3",
+                "cookie": "0",
+                "priority": "32766",
+                "in_port": "1",
+                "eth_type": "0x800",
+                "ipv4_src": "10.0.0.1",
+                "ipv4_dst": "10.0.0.3",
+                "ip_proto": "0x06",
+                "tcp_dst": "80",
+                "active": "true",
+                "actions": "output=3, set_queue=2"
+            })
+
+            # policy for S3 from h1 to h3
+            # 512Kbps
+            pusher.set({
+                'switch': "00:00:00:00:00:00:00:03",
+                "name": "S3Limit512Kh1toh3",
+                "cookie": "0",
+                "priority": "32766",
+                "in_port": "2",
+                "eth_type": "0x800",
+                "ipv4_src": "10.0.0.1",
+                "ipv4_dst": "10.0.0.3",
+                "ip_proto": "0x06",
+                "tcp_dst": "80",
+                "active": "true",
+                "actions": "output=1, set_queue=2"
+            })
+        else:
+            # policy for S1 from h1 to h3
+            # drop
+            pusher.set({
+                'switch': "00:00:00:00:00:00:00:01",
+                "name": "S1Droph1toh3",
+                "cookie": "0",
+                "priority": "32767",
+                "in_port": "1",
+                "eth_type": "0x800",
+                "ipv4_src": "10.0.0.1",
+                "ipv4_dst": "10.0.0.3",
+                "ip_proto": "0x06",
+                "tcp_dst": "80",
+                "active": "true",
+                "actions": ""
+            })
+
+            # policy for S3 from h1 to h3
+            # drop
+            pusher.set({
+                'switch': "00:00:00:00:00:00:00:03",
+                "name": "S3Droph1toh3",
+                "cookie": "0",
+                "priority": "32767",
+                "in_port": "2",
+                "eth_type": "0x800",
+                "ipv4_src": "10.0.0.1",
+                "ipv4_dst": "10.0.0.3",
+                "ip_proto": "0x06",
+                "tcp_dst": "80",
+                "active": "true",
+                "actions": ""
+            })
+
+def checkMatch(head):
+    return \
+        if head["eth_type"] == "0x800" \
+        and head["ip_proto"] == "0x06" \
+        and head["ipv4_src"] == "10.0.0.1" \
+        and head["ipv4_dst"] == "10.0.0.3" \
+        and head["tcp_dst"] == "80"
 
 
 def staticForwarding():
