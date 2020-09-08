@@ -315,7 +315,7 @@ def S1toS3():
             })
 
 def checkMatch(head):
-    return head["eth_type"] == "0x800" and head["ip_proto"] == "0x06" and head["ipv4_src"] == "10.0.0.1" and head["ipv4_dst"] == "10.0.0.3" and head["tcp_dst"] == "80"
+    return "eth_type" in head and head["eth_type"] == "0x800" and head["ip_proto"] == "0x06" and head["ipv4_src"] == "10.0.0.1" and head["ipv4_dst"] == "10.0.0.3" and head["tcp_dst"] == "80"
 
 
 def staticForwarding():
