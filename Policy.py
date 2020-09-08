@@ -333,7 +333,7 @@ def staticForwarding():
     S2Staticflow1 = {'switch': "00:00:00:00:00:00:00:02", "name": "S2h2toh1", "cookie": "0", "priority": "1",
                      "in_port": "1", "eth_type": "0x800", "ipv4_src": "10.0.0.2",
                      "ipv4_dst": "10.0.0.1", "active": "true", "actions": "output=2"}
-ß
+
     S2Staticflow2 = {'switch': "00:00:00:00:00:00:00:02", "name": "S2h1toh2", "cookie": "0",
                      "priority": "1", "in_port": "2", "eth_type": "0x800", "ipv4_src": "10.0.0.1",
                      "ipv4_dst": "10.0.0.2", "active": "true", "actions": "output=1"}
