@@ -42,7 +42,7 @@ Connecting to host 10.0.0.3, port 999
 
 iperf Done.
 ```
-UDP packet transfer from h2 to h3 is not blocked, therefore, the bandwidth here is 1.03Mbps.
+UDP packet transfer from h2 to h3 port 999 is not blocked, therefore, the bandwidth here is 1.03Mbps.
 
 
 ###### Host 3
@@ -71,7 +71,7 @@ Accepted connection from 10.0.0.2, port 48774
 Server listening on 999
 -----------------------------------------------------------
 ```
-Also, host 3 as server could hear the UDP packet from port 999.
+Host 3 as server could hear the UDP packet from port 999.
 
 #### Port 1000
 ###### Host 2
@@ -79,6 +79,7 @@ Also, host 3 as server could hear the UDP packet from port 999.
 Connecting to host 10.0.0.3, port 1000
 > iperf3: error - unable to read from stream socket: Resource temporarily unavailable.
 ```
+UDP packet transfer from h2 to h3 port 1000 is blocked, therefore, the there is no response from server. Switch drop the packet directly.
 
 ###### Host 3
 ```
@@ -91,12 +92,15 @@ Accepted connection from 10.0.0.2, port 53192
 Server listening on 1000
 -----------------------------------------------------------
 ```
+Host 3 as server could not hear the UDP packet from port 1000 since it's been dropped by switch.
+
 #### Port 1100
 ###### Host 2
 ```
 Connecting to host 10.0.0.3, port 1100
 >iperf3: the client has unexpectedly closed the connections
 ```
+UDP packet transfer from h2 to h3 port 1100 is blocked, therefore, the there is no response from server. Switch drop the packet directly.
 
 ###### Host 3
 ```
@@ -109,6 +113,7 @@ Accepted connection from 10.0.0.2, port 57136
 Server listening on 1100
 -----------------------------------------------------------
 ```
+Host 3 as server could not hear the UDP packet from port 1100 since it's been dropped by switch.
 
 #### Port 1101
 ###### Host 2
@@ -133,6 +138,7 @@ Connecting to host 10.0.0.3, port 1101
 
 iperf Done.
 ```
+UDP packet transfer from h2 to h3 port 1101 is not blocked, therefore, the bandwidth here is 1.04Mbps.
 
 ###### Host 3
 ```
@@ -160,6 +166,7 @@ Accepted connection from 10.0.0.2, port 51604
 Server listening on 1101
 -----------------------------------------------------------
 ```
+Host 3 as server could hear the UDP packet from port 1101.
 
 #### Communication from H3 to H2
 ##### Port 999
@@ -189,6 +196,7 @@ Accepted connection from 10.0.0.3, port 35114
 Server listening on 999
 -----------------------------------------------------------
 ```
+Host 2 as server could hear the UDP packet from port 1101.
 
 ###### Host 3
 ```
@@ -212,6 +220,7 @@ Connecting to host 10.0.0.2, port 999
 
 iperf Done.
 ```
+UDP packet transfer from h3 to h2 port 999 is not blocked, therefore, the bandwidth here is 1.04Mbps.
 
 #### Port 1000
 ###### Host 2
@@ -225,12 +234,14 @@ Accepted connection from 10.0.0.3, port 38238
 Server listening on 1000
 -----------------------------------------------------------
 ```
+Host 2 as server could not hear the UDP packet from port 1000 since it's been dropped by switch.
 
 ###### Host 3
 ```
 Connecting to host 10.0.0.2, port 1000
 iperf3: error - unable to read from stream socket: Resource temporarily unavailable.
 ```
+UDP packet transfer from h3 to h2 port 1000 is blocked, therefore, the there is no response from server. Switch drop the packet directly.
 
 #### Port 1100
 ###### Host 2
@@ -244,12 +255,14 @@ iperf3: the client has unexpectedly closed the connections
 Server listening on 1100
 -----------------------------------------------------------
 ```
+Host 2 as server could not hear the UDP packet from port 1100 since it's been dropped by switch.
 
 ###### Host 3
 ```
 Connecting to host 10.0.0.2, port 1100
 iperf3: error - unable to read from stream socket: Resource temporarily unavailable.
 ```
+UDP packet transfer from h3 to h2 port 1100 is blocked, therefore, the there is no response from server. Switch drop the packet directly.
 
 #### Port 1101
 ###### Host 2
@@ -278,6 +291,8 @@ Accepted connection from 10.0.0.3, port 42670
 Server listening on 1101
 -----------------------------------------------------------
 ```
+Host 2 as server could hear the UDP packet from port 1101.
+
 ###### Host 3
 ```
 Connecting to host 10.0.0.2, port 1101
@@ -300,6 +315,8 @@ Connecting to host 10.0.0.2, port 1101
 
 iperf Done.
 ```
+UDP packet transfer from h3 to h2 port 1101 is not blocked, therefore, the bandwidth here is 1.04Mbps.
+
 
 - - -
 ## Policy 2
@@ -358,6 +375,50 @@ Communication from H1 to H3: (15 points) Regulate HTTP traffic using the below l
 
 
 ### Idea:
-Communication from H1 to H3: (15 points) Regulate HTTP traffic using the below logic: • When the total transfer is less than 20Mb, rate limit Traffic to 1Mbps
-• If total transfer is between 20Mb to 30Mb, rate limit to 512Kbps
-• If total transfer is more than 30Mb, drop packets.
+Initialize a total_bit variable to 0.
+While the total_bit is less than 30Mb, keep:
+* Send http request to switch 1 accquires the for the flows inforamtion go through it.
+* Check if flows contains the target http flow (e.g. tcp request, destination port = 80).
+* If there is, obtain the value of "byteCount" from the response, and set total_bit = flow[byteCount] * 8.
+* Determine which policy to set based on total_bit with the help of condition logic. There are three sepereate policy.
+  * action=set_queue=1, which means 1MBps
+  * action=set_queue=2, which means 512Kbps
+  * action="", which means drop the packet 
+
+### Logs:
+```
+-----------------------------------------------------------
+Server listening on 80
+-----------------------------------------------------------
+Accepted connection from 10.0.0.1, port 60300
+[ 21] local 10.0.0.3 port 80 connected to 10.0.0.1 port 60354
+[ ID] Interval           Transfer     Bandwidth
+[ 21]   0.00-1.00   sec   116 KBytes   949 Kbits/sec                  
+[ 21]   1.00-2.00   sec   116 KBytes   951 Kbits/sec                  
+[ 21]   2.00-3.00   sec   116 KBytes   950 Kbits/sec                  
+[ 21]   3.00-4.00   sec   119 KBytes   973 Kbits/sec  
+...    
+```
+Initial bandwidth has upper limit 1Mbps
+```
+...
+[ 21]  22.00-23.00  sec  59.4 KBytes   487 Kbits/sec                  
+[ 21]  23.00-24.00  sec  60.8 KBytes   498 Kbits/sec                  
+[ 21]  24.00-25.00  sec  59.4 KBytes   486 Kbits/sec                  
+[ 21]  25.00-26.00  sec  59.4 KBytes   487 Kbits/sec                  
+[ 21]  26.00-27.00  sec  60.8 KBytes   498 Kbits/sec                  
+[ 21]  27.00-28.00  sec  59.4 KBytes   486 Kbits/sec
+...
+```
+After about 20 sec bandwidth has upper limit 512Kbps
+```
+...
+[ 21]  66.00-67.00  sec  0.00 Bytes  0.00 bits/sec                  
+[ 21]  67.00-68.00  sec  0.00 Bytes  0.00 bits/sec                  
+[ 21]  68.00-69.00  sec  0.00 Bytes  0.00 bits/sec                  
+[ 21]  69.00-70.00  sec  0.00 Bytes  0.00 bits/sec                  
+[ 21]  70.00-71.00  sec  0.00 Bytes  0.00 bits/sec                  
+[ 21]  71.00-72.00  sec  0.00 Bytes  0.00 bits/sec
+...
+```
+After about 65 sec, the pack is dropped by switches and will not received by host 3.
