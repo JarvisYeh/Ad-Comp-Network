@@ -188,14 +188,14 @@ def S2toS3():
 # To insert the policies for the traffic applicable to path between S1 and S3
 def S1toS3():
     # initialize the total_bit to 0
-    total_bit = 0
+    total_byte = 0
 
     # priority of three different stages increases
     # total < 20MB, policy priority = 32765
     # 20MB <= total <= 30MB, policy priority = 32766
     # 30MB < total, total priority = 32767
-    while total_bit <= 30 * 1024 * 1024:
-        print total_bit
+    while total_byte <= 30 * 1024 * 1024:
+        print str(total_byte/1024/1024) + "MB transfered"
         # obtain response from swtich through rest api
         response = flowget.get("00:00:00:00:00:00:00:01")
         # print(response)
@@ -205,7 +205,7 @@ def S1toS3():
         for i in range(len(response["flows"])):
             flow_head = flows[i]["match"]
             if checkMatch(flow_head):
-                total_bit += int(flows[i]["byteCount"]) * 8
+                total_byte += int(flows[i]["byteCount"])
         
         if total_bit < 20 * 1024 * 1024:
             # for http request (tcp destination port 8080)
