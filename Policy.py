@@ -198,12 +198,14 @@ def S1toS3():
         print total_bit
         # obtain response from swtich through rest api
         response = flowget.get("00:00:00:00:00:00:00:01")
+        # print(response)
         flows = response["flows"]
 
         # sum up target flows size
         for i in range(len(response["flows"])):
             flow_head = flows[i]["match"]
             if checkMatch(flow_head):
+                print "match!!!!!!!"
                 total_bit += int(flows[i]["byteCount"]) * 8
         
         if total_bit < 20 * 1024 * 1024:
