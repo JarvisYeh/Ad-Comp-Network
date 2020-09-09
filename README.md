@@ -421,4 +421,4 @@ After about 20 sec bandwidth has upper limit 512Kbps
 [ 21]  71.00-72.00  sec  0.00 Bytes  0.00 bits/sec
 ...
 ```
-After about 65 sec, the pack is dropped by switches and will not received by host 3.
+After about 65 sec, the packets are dropped by switches and will not received by host 3.
