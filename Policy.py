@@ -205,6 +205,7 @@ def S1toS3():
         for i in range(len(response["flows"])):
             flow_head = flows[i]["match"]
             print flow_head
+            print flows[i]["byteCount"]
             if checkMatch(flow_head):
                 total_bit += int(flows[i]["byteCount"]) * 8
         
@@ -318,11 +319,11 @@ def S1toS3():
             })
 
 def checkMatch(head):
-    return "eth_type" in head and head["eth_type"] == "u'0x800'" \
-        and "ip_proto" in head and head["ip_proto"] == "u'0x06'" \
-        and "ipv4_src" in head and head["ipv4_src"] == "u'10.0.0.1'" \
-        and "ipv4_dst" in head and head["ipv4_dst"] == "u'10.0.0.3'" \
-        and "tcp_dst" in head and head["tcp_dst"] == "u'80'"
+    return "eth_type" in head and head["eth_type"] == "0x0x800" \
+        and "ip_proto" in head and head["ip_proto"] == "0x06" \
+        and "ipv4_src" in head and head["ipv4_src"] == "10.0.0.1" \
+        and "ipv4_dst" in head and head["ipv4_dst"] == "10.0.0.3" \
+        and "tcp_dst" in head and head["tcp_dst"] == "80"
 
 
 def staticForwarding():
