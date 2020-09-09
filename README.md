@@ -20,6 +20,10 @@ Also set priority to default maximum: 32767 so that new rules could overwrite st
 ### Logs:
 #### Communication from H2 to H3:
 ##### Port 999:
+```
+Host3: iperf3 -s -p 999
+Host2: iperf3 -c 10.0.0.3 -p 999 -u
+```
 ###### Host 2:
 ```
 Connecting to host 10.0.0.3, port 999
@@ -74,6 +78,10 @@ Server listening on 999
 Host 3 as server could hear the UDP packet from port 999.
 
 #### Port 1000
+```
+Host3: iperf3 -s -p 1000
+Host2: iperf3 -c 10.0.0.3 -p 1000 -u
+```
 ###### Host 2
 ```
 Connecting to host 10.0.0.3, port 1000
@@ -95,6 +103,10 @@ Server listening on 1000
 Host 3 as server could not hear the UDP packet from port 1000 since it's been dropped by switch.
 
 #### Port 1100
+```
+Host3: iperf3 -s -p 1100
+Host2: iperf3 -c 10.0.0.3 -p 1100 -u
+```
 ###### Host 2
 ```
 Connecting to host 10.0.0.3, port 1100
@@ -116,6 +128,10 @@ Server listening on 1100
 Host 3 as server could not hear the UDP packet from port 1100 since it's been dropped by switch.
 
 #### Port 1101
+```
+Host3: iperf3 -s -p 1101
+Host2: iperf3 -c 10.0.0.3 -p 1101 -u
+```
 ###### Host 2
 ```
 Connecting to host 10.0.0.3, port 1101
@@ -170,6 +186,10 @@ Host 3 as server could hear the UDP packet from port 1101.
 
 #### Communication from H3 to H2
 ##### Port 999
+```
+Host2: iperf3 -s -p 999
+Host3: iperf3 -c 10.0.0.2 -p 999 -u
+```
 ###### Host 2
 ```
 -----------------------------------------------------------
@@ -223,6 +243,10 @@ iperf Done.
 UDP packet transfer from h3 to h2 port 999 is not blocked, therefore, the bandwidth here is 1.04Mbps.
 
 #### Port 1000
+```
+Host2: iperf3 -s -p 1000
+Host3: iperf3 -c 10.0.0.2 -p 1000 -u
+```
 ###### Host 2
 ```
 -----------------------------------------------------------
@@ -244,6 +268,10 @@ iperf3: error - unable to read from stream socket: Resource temporarily unavaila
 UDP packet transfer from h3 to h2 port 1000 is blocked, therefore, the there is no response from server. Switch drop the packet directly.
 
 #### Port 1100
+```
+Host2: iperf3 -s -p 1100
+Host3: iperf3 -c 10.0.0.2 -p 1100 -u
+```
 ###### Host 2
 ```
 -----------------------------------------------------------
@@ -265,6 +293,10 @@ iperf3: error - unable to read from stream socket: Resource temporarily unavaila
 UDP packet transfer from h3 to h2 port 1100 is blocked, therefore, the there is no response from server. Switch drop the packet directly.
 
 #### Port 1101
+```
+Host2: iperf3 -s -p 1101
+Host3: iperf3 -c 10.0.0.2 -p 1101 -u
+```
 ###### Host 2
 ```
 -----------------------------------------------------------
@@ -332,6 +364,10 @@ Also set priority to default maximum: 32767 so that new rules could overwrite st
 
 ### Logs:
 #### Communication from H1 to H2:
+```
+Host2: iperf3 -s
+Host1: iperf3 -c 10.0.0.2
+```
 ###### Host 2
 ```
 -----------------------------------------------------------
@@ -386,6 +422,12 @@ While the total_bit is less than 30Mb, keep:
   * action="", which means drop the packet 
 
 ### Logs:
+```
+Host3: iperf3 -s -p 80
+Host1: iperf3 -c 10.0.0.3 -p 80 -t 120
+```
+
+###### Host 3
 ```
 -----------------------------------------------------------
 Server listening on 80
