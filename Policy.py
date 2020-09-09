@@ -188,14 +188,14 @@ def S2toS3():
 # To insert the policies for the traffic applicable to path between S1 and S3
 def S1toS3():
     # initialize the total_bit to 0
-    total_byte = 0
+    total_bit = 0
 
     # priority of three different stages increases
-    # total < 20MB, policy priority = 32765
-    # 20MB <= total <= 30MB, policy priority = 32766
-    # 30MB < total, total priority = 32767
+    # total < 20Mb, policy priority = 32765
+    # 20Mb <= total <= 30Mb, policy priority = 32766
+    # 30Mb < total, total priority = 32767
     while total_byte <= 30 * 1024 * 1024:
-        print str(total_byte/1024/1024) + "MB transfered"
+        print str(total_bit/1024/1024) + "Mb transfered"
         # obtain response from swtich through rest api
         response = flowget.get("00:00:00:00:00:00:00:01")
         # print(response)
@@ -205,9 +205,10 @@ def S1toS3():
         for i in range(len(response["flows"])):
             flow_head = flows[i]["match"]
             if checkMatch(flow_head):
-                total_byte += int(flows[i]["byteCount"])
+                print total_bit + str(total_byte)
+                total_bit += int(flows[i]["byteCount"]) * 8
         
-        if total_byte < 20 * 1024 * 1024:
+        if total_bit < 20 * 1024 * 1024:
             # for http request (tcp destination port 8080)
             # use tcp_dst has the prerequisite ip_proto=0x06
 
@@ -245,7 +246,7 @@ def S1toS3():
                 "active": "true",
                 "actions": "set_queue=1,output=1"
             }) 
-        elif total_byte >= 20 * 1024 * 1024 and total_byte <= 30 * 1024 * 1024:
+        elif total_bit >= 20 * 1024 * 1024 and total_bit <= 30 * 1024 * 1024:
             # policy for S1 from h1 to h3
             # 512Kbps
             print "521Kbps"
