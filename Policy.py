@@ -204,8 +204,6 @@ def S1toS3():
         # sum up target flows size
         for i in range(len(response["flows"])):
             flow_head = flows[i]["match"]
-            print flow_head
-            print flows[i]["byteCount"]
             if checkMatch(flow_head):
                 total_bit += int(flows[i]["byteCount"]) * 8
         
