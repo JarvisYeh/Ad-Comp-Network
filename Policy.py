@@ -204,7 +204,7 @@ def S1toS3():
         for i in range(len(response["flows"])):
             if checkMatch(flows[i]["match"]):
                 print flows[i]["match"]
-                total_bit += int(flows[i]["byteCount"]) * 8
+                total_bit = int(flows[i]["byteCount"]) * 8
                 print total_bit/1024/1024
         
         if total_bit < 20 * 1024 * 1024:
