@@ -73,7 +73,7 @@ flowget = flowStat('127.0.0.1')
 # To insert the policies for the traffic applicable to path between S1 and S2
 def S1toS2():
     # h1->h2 has the rate limit of 1Mbps
-    # need to set_queue to Queue 2
+    # need to set_queue to Queue 1
     # for both policy, add set_queue=2 to action key
     # set default maximum priority = 32767
     S1Limitflow = {
@@ -86,7 +86,7 @@ def S1toS2():
         "ipv4_src": "10.0.0.1",
         "ipv4_dst": "10.0.0.2",
         "active": "true",
-        "actions": "set_queue=2,output=2"
+        "actions": "set_queue=1,output=2"
     }
 
     S2Limitflow = {
@@ -99,7 +99,7 @@ def S1toS2():
         "ipv4_src": "10.0.0.1",
         "ipv4_dst": "10.0.0.2", 
         "active": "true", 
-        "actions": "set_queue=2,output=1"      
+        "actions": "set_queue=1,output=1"      
     }
 
     pusher.set(S1Limitflow)
