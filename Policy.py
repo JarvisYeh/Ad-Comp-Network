@@ -207,7 +207,7 @@ def S1toS3():
             if checkMatch(flow_head):
                 total_byte += int(flows[i]["byteCount"])
         
-        if total_bit < 20 * 1024 * 1024:
+        if total_byte < 20 * 1024 * 1024:
             # for http request (tcp destination port 8080)
             # use tcp_dst has the prerequisite ip_proto=0x06
 
@@ -245,7 +245,7 @@ def S1toS3():
                 "active": "true",
                 "actions": "set_queue=1,output=1"
             }) 
-        elif total_bit >= 20 * 1024 * 1024 and total_bit <= 30 * 1024 * 1024:
+        elif total_byte >= 20 * 1024 * 1024 and total_byte <= 30 * 1024 * 1024:
             # policy for S1 from h1 to h3
             # 512Kbps
             print "521Kbps"
