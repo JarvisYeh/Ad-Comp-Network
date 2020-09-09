@@ -203,9 +203,7 @@ def S1toS3():
         # sum up target flows size
         for i in range(len(response["flows"])):
             if checkMatch(flows[i]["match"]):
-                print flows[i]["match"]
                 total_bit = int(flows[i]["byteCount"]) * 8
-                print total_bit/1024/1024
         
         if total_bit < 20 * 1024 * 1024:
             # for http request (tcp destination port 8080)
@@ -213,7 +211,7 @@ def S1toS3():
 
             # policy for S1 from h1 to h3
             # 1Mbps
-            print "1Mbps"
+            print "1Mbps mode"
             pusher.set({
                 'switch': "00:00:00:00:00:00:00:01",
                 "name": "S1Limit1Mh1toh3",
@@ -248,7 +246,7 @@ def S1toS3():
         elif total_bit >= 20 * 1024 * 1024 and total_bit <= 30 * 1024 * 1024:
             # policy for S1 from h1 to h3
             # 512Kbps
-            print "521Kbps"
+            print "521Kbps mode"
             pusher.set({
                 'switch': "00:00:00:00:00:00:00:01",
                 "name": "S1Limit512Kh1toh3",
@@ -283,7 +281,7 @@ def S1toS3():
         else:
             # policy for S1 from h1 to h3
             # drop
-            print "Drop"
+            print "Drop mode"
             pusher.set({
                 'switch': "00:00:00:00:00:00:00:01",
                 "name": "S1Droph1toh3",
@@ -315,6 +313,7 @@ def S1toS3():
                 "active": "true",
                 "actions": ""
             })
+        print ""
 
 def checkMatch(head):
     return "eth_type" in head and head["eth_type"] == "0x0x800" \
