@@ -194,11 +194,10 @@ def S1toS3():
     # total < 20Mb, policy priority = 32765
     # 20Mb <= total <= 30Mb, policy priority = 32766
     # 30Mb < total, total priority = 32767
-    while total_byte <= 30 * 1024 * 1024:
+    while total_bit <= 30 * 1024 * 1024:
         print str(total_bit/1024/1024) + "Mb transfered"
         # obtain response from swtich through rest api
         response = flowget.get("00:00:00:00:00:00:00:01")
-        # print(response)
         flows = response["flows"]
 
         # sum up target flows size
