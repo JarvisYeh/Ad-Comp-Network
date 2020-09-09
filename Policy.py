@@ -86,7 +86,7 @@ def S1toS2():
         "ipv4_src": "10.0.0.1",
         "ipv4_dst": "10.0.0.2",
         "active": "true",
-        "actions": "output=2, set_queue=2"
+        "actions": "set_queue=2,output=2"
     }
 
     S2Limitflow = {
@@ -99,7 +99,7 @@ def S1toS2():
         "ipv4_src": "10.0.0.1",
         "ipv4_dst": "10.0.0.2", 
         "active": "true", 
-        "actions": "output=1, set_queue=2"      
+        "actions": "set_queue=2,output=1"      
     }
 
     pusher.set(S1Limitflow)
@@ -225,7 +225,7 @@ def S1toS3():
                 "ip_proto": "0x06",
                 "tcp_dst": "80",
                 "active": "true",
-                "actions": "output=3, set_queue=1"
+                "actions": "set_queue=1,output=3"
             })
 
             # policy for S3 from h1 to h3
@@ -242,7 +242,7 @@ def S1toS3():
                 "ip_proto": "0x06",
                 "tcp_dst": "80",
                 "active": "true",
-                "actions": "output=1, set_queue=1"
+                "actions": "set_queue=1,output=1"
             }) 
         elif total_bit >= 20 * 1024 * 1024 and total_bit <= 30 * 1024 * 1024:
             # policy for S1 from h1 to h3
@@ -260,7 +260,7 @@ def S1toS3():
                 "ip_proto": "0x06",
                 "tcp_dst": "80",
                 "active": "true",
-                "actions": "output=3, set_queue=2"
+                "actions": "set_queue=2,output=3"
             })
 
             # policy for S3 from h1 to h3
@@ -277,7 +277,7 @@ def S1toS3():
                 "ip_proto": "0x06",
                 "tcp_dst": "80",
                 "active": "true",
-                "actions": "output=1, set_queue=2"
+                "actions": "set_queue=2,output=1"
             })
         else:
             # policy for S1 from h1 to h3
