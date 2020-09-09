@@ -203,7 +203,8 @@ def S1toS3():
         # sum up target flows size
         for i in range(len(response["flows"])):
             print flows[i]["match"]
-            print checkMatch(flows[i]['match'])
+            print "eth_type" in flows[i]["match"]
+            print "eth_type" in flows[i]["match"] and flows[i]["match"]["eth_typr"] == "0x0x800"
             if checkMatch(flows[i]["match"]):
                 print total_bit + str(total_byte)
                 total_bit += int(flows[i]["byteCount"]) * 8
