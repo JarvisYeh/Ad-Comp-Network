@@ -74,7 +74,7 @@ flowget = flowStat('127.0.0.1')
 def S1toS2():
     # h1->h2 has the rate limit of 1Mbps
     # need to set_queue to Queue 1
-    # for both policy, add set_queue=2 to action key
+    # for both policy, add set_queue=1 to action key
     # set default maximum priority = 32767
     S1Limitflow = {
         'switch': "00:00:00:00:00:00:00:01",
