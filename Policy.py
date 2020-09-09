@@ -200,11 +200,11 @@ def S1toS3():
         response = flowget.get("00:00:00:00:00:00:00:01")
         # print(response)
         flows = response["flows"]
-        print "flows" in response
 
         # sum up target flows size
         for i in range(len(response["flows"])):
             flow_head = flows[i]["match"]
+            print flow_head
             if checkMatch(flow_head):
                 total_bit += int(flows[i]["byteCount"]) * 8
         
