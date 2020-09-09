@@ -2,9 +2,9 @@
 Date : 09/09/2020
 
 
-- - -
+####################################################
 ## Policy 1
-- - -
+####################################################
 ### Requirements:
 Communication between H2 to H3 and vice-versa:
 Block all traffic using destination UDP ports from 1000 - 1100.
@@ -318,9 +318,9 @@ iperf Done.
 UDP packet transfer from h3 to h2 port 1101 is not blocked, therefore, the bandwidth here is 1.04Mbps.
 
 
-- - -
+####################################################
 ## Policy 2
-- - -
+####################################################
 ### Requirements:
 Communication from H1 to H2:
 Rate limit traffic to 1 Mbps.
@@ -364,9 +364,9 @@ Server listening on 5201
 ```
 Host 2 as receiver has the average bandwith = 955Kbps, which is less than 1Mbps.
 
-- - -
+####################################################
 ## Policy 3
-- - -
+####################################################
 ### Requirements:
 Communication from H1 to H3: (15 points) Regulate HTTP traffic using the below logic:
 * When the total transfer is less than 20Mb, rate limit Traffic to 1Mbps.
@@ -399,7 +399,8 @@ Accepted connection from 10.0.0.1, port 60300
 [ 21]   3.00-4.00   sec   119 KBytes   973 Kbits/sec  
 ...    
 ```
-Initial bandwidth has upper limit 1Mbps
+Initial bandwidth has upper limit 1Mbps.
+
 ```
 ...
 [ 21]  22.00-23.00  sec  59.4 KBytes   487 Kbits/sec                  
@@ -410,7 +411,8 @@ Initial bandwidth has upper limit 1Mbps
 [ 21]  27.00-28.00  sec  59.4 KBytes   486 Kbits/sec
 ...
 ```
-After about 20 sec bandwidth has upper limit 512Kbps
+After about 20 sec bandwidth has upper limit 512Kbps.
+
 ```
 ...
 [ 21]  66.00-67.00  sec  0.00 Bytes  0.00 bits/sec                  
