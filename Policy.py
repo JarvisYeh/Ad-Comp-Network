@@ -200,7 +200,7 @@ def S1toS3():
         response = flowget.get("00:00:00:00:00:00:00:01")
         # print(response)
         flows = response["flows"]
-        print response["flows"]
+        print "flows" in response
 
         # sum up target flows size
         for i in range(len(response["flows"])):
