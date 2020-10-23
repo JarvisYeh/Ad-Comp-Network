@@ -279,6 +279,4 @@ def staticForwarding():
 if __name__ == '__main__':
     staticForwarding()
     print("haha")
-    # AutoRouting()
-    while (True):
-        # DO nothing
+    pass
