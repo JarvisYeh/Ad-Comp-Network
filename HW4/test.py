@@ -68,24 +68,18 @@ if __name__ == '__main__':
         byteCount_after = 0
 
         time_prev, byteCount_prev = getStatics("00:00:00:00:00:00:00:03")
-        t.sleep(2)
+        t.sleep(0.5)
         time_after, byteCount_after = getStatics("00:00:00:00:00:00:00:03")
-
-        print(time_prev, ", ",byteCount_prev)
-        print(time_after, ", ",byteCount_after)
-
-        if (time_prev == 0 or time_after == 0 or byteCount_prev == 0 or byteCount_after == 0):
-            print("error!!")
 
         time = time_after - time_prev
         byteCount = byteCount_after - byteCount_prev
 
         if (time == 0):
-            print("true")
-            continue
+            print("error!")
+            break
 
         tp = byteCount * 8.0 / 1000000 / time
-        print(t.time(), " throughput: ", tp, "Mbps")
+        print("duration: ", time,", "  " throughput: ", tp, "Mbps")
 
     # print(retData)
     pass
