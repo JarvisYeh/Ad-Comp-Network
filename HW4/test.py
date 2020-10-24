@@ -38,7 +38,7 @@ class flowStat(object):
 flowget = flowStat('127.0.0.1')
 
 
-def getStatics(switch_id):
+# def getStatics(switch_id):
 
 
 if __name__ == '__main__':
