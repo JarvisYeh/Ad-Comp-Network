@@ -59,11 +59,10 @@ if __name__ == '__main__':
             ipSrc = myMatch['ipv4_src']
             ipDst = myMatch['ipv4_dst']
             if (ipSrc == "10.0.0.1") and (ipDst == "10.0.0.3"):
-                time_prev = myFlow['durationSeconds']
-                byteCount_prev = myFlow['byteCount']
-        print('durationSeconds_prev: ', time_prev)
-        print('byteCount_prev: ', byteCount_prev)
-        print('byteCount_prev: ', int(byteCount_prev))
+                time_prev = int(myFlow['durationSeconds'])
+                byteCount_prev = int(myFlow['byteCount'])
+        # print('durationSeconds_prev: ', time_prev)
+        # print('byteCount_prev: ', byteCount_prev)
         t.sleep(1)
 
         retData = flowget.get("00:00:00:00:00:00:00:03")
@@ -77,8 +76,8 @@ if __name__ == '__main__':
             ipSrc = myMatch['ipv4_src']
             ipDst = myMatch['ipv4_dst']
             if (ipSrc == "10.0.0.1") and (ipDst == "10.0.0.3"):
-                time_after = myFlow['durationSeconds']
-                byteCount_after = myFlow['byteCount']
+                time_after = int(myFlow['durationSeconds'])
+                byteCount_after = int(myFlow['byteCount'])
 
         if (time_prev == 0 or time_after == 0 or byteCount_prev == 0 or byteCount_after == 0):
             print("error!!")
