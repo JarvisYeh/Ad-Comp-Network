@@ -1,14 +1,20 @@
 1.	Usage
     a)	for each scenario, run PolicyX.py directly (./PolicyX.py), the Automonitor.py contains the function which will be called by PolicyX.py, no need to run it separately.
     b)	Note that each time to run a run policy, the floodlight and mininet need to be restarted since the deletion of alternative flows is not implemented.
-    
+
 2.	Logic of three policies
+    Each policy uses the function in Automonitor.py to get the byte count and time stamp, after one second, get byte count and time stamp again.
+    Use those statistics to obtain the throuput of different links
     Policy 1:
         i.	Monitor the throughput of swtich3 regarding to flows from h1 to h3 and h1 to h4. The monitor frequency is once per second.
-        ii.	When the throughput of the flows going through s3 increases above 90Mbps, reroute the h1 to h3 flows from “H1 -> S1 -> S3 -> H3“ to “H1 -> S1 -> S2 -> S3 -> H3“
+        ii.	When the throughput of the flows going through s3 increases above 90Mbps
+            reroute the h1 to h3 flows from “H1 -> S1 -> S3 -> H3“ to “H1 -> S1 -> S2 -> S3 -> H3“
     Policy 2:
         i.	Monitor the throughput of swtich3 regarding to flows from h1 to h3, h1 to h4 and h1 to h5. The monitor frequency is once per second.
-        ii.	When the throughput of the flows going through s3 increases above 90Mbps, reroute the h1 to h4 flows from “H1 -> S1 -> S3 -> H4“ to “H1 -> S1 -> S2 -> S3 -> H4“ and reroute the h1 to h5 flows from “H1 -> S1 -> S3 -> H5“ to “H1 -> S1 -> S2 -> S3 -> H5“
+        ii.	When the throughput of the flows going through s3 increases above 90Mbps
+            reroute the h1 to h4 flows from “H1 -> S1 -> S3 -> H4“ to “H1 -> S1 -> S2 -> S3 -> H4“
+            reroute the h1 to h5 flows from “H1 -> S1 -> S3 -> H5“ to “H1 -> S1 -> S2 -> S3 -> H5“
     Policy 3:
         i.	Monitor the throughput of swtich3 regarding to flows from h2 to h3 and h1 to h4. The monitor frequency is once per second.
-        ii.	When the throughput of the flows going through s3 increases above 90Mbps, reroute the h2 to h5 flows from “H2 -> S2 -> S3 -> H5“ to “H2 -> S2 -> S1 -> S3 -> H5“ .
+        ii.	When the throughput of the flows going through s3 increases above 90Mbps
+            reroute the h2 to h5 flows from “H2 -> S2 -> S3 -> H5“ to “H2 -> S2 -> S1 -> S3 -> H5“
