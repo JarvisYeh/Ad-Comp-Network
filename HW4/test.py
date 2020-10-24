@@ -61,7 +61,8 @@ if __name__ == '__main__':
             if (ipSrc == "10.0.0.1") and (ipDst == "10.0.0.3"):
                 time_prev = myFlow['durationSeconds']
                 byteCount_prev = myFlow['byteCount']
-
+        print('durationSeconds_prev: ', time_prev)
+        print('byteCount_prev: ', byteCount_prev)
         t.sleep(1)
 
         retData = flowget.get("00:00:00:00:00:00:00:03")
