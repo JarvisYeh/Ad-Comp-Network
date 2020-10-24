@@ -38,54 +38,44 @@ class flowStat(object):
 flowget = flowStat('127.0.0.1')
 
 
-# def getStatics(switch_id):
+def getStatics(switch_id):
+    time = 0
+    byteCount = 0
+
+    retData = flowget.get(switch)
+    myFlows = retData['flows']
+    for myFlow in myFlows:
+        myMatch = myFlow['match']
+        if 'ipv4_src' not in myMatch:
+            continue
+        if 'ipv4_dst' not in myMatch:
+            continue
+        ipSrc = myMatch['ipv4_src']
+        ipDst = myMatch['ipv4_dst']
+        if (ipSrc == "10.0.0.1") and (ipDst == "10.0.0.3"):
+            time = int(myFlow['durationSeconds'])
+            byteCount = int(myFlow['byteCount'])
+    return time, byteCount
+        
 
 
 if __name__ == '__main__':
-    while (True):
+
+    while True:
         time_prev = 0
         time_after = 0
         byteCount_prev = 0
         byteCount_after = 0
 
-        retData = flowget.get("00:00:00:00:00:00:00:03")
-        myFlows = retData['flows']
-        for myFlow in myFlows:
-            myMatch = myFlow['match']
-            if 'ipv4_src' not in myMatch:
-                continue
-            if 'ipv4_dst' not in myMatch:
-                continue
-            ipSrc = myMatch['ipv4_src']
-            ipDst = myMatch['ipv4_dst']
-            if (ipSrc == "10.0.0.1") and (ipDst == "10.0.0.3"):
-                time_prev = int(myFlow['durationSeconds'])
-                byteCount_prev = int(myFlow['byteCount'])
-
-        print('durationSeconds_prev: ', time_prev)
+        time_prev, byteCount_prev = getStatics("00:00:00:00:00:00:00:03")
         t.sleep(2)
-
-        retData = flowget.get("00:00:00:00:00:00:00:03")
-        myFlow = retData['flows']
-        for myFlow in myFlows:
-            myMatch = myFlow['match']
-            if 'ipv4_src' not in myMatch:
-                continue
-            if 'ipv4_dst' not in myMatch:
-                continue
-            ipSrc = myMatch['ipv4_src']
-            ipDst = myMatch['ipv4_dst']
-            if (ipSrc == "10.0.0.1") and (ipDst == "10.0.0.3"):
-                time_after = int(myFlow['durationSeconds'])
-                byteCount_after = int(myFlow['byteCount'])
-
-        print('durationSeconds_after: ', time_after)
-
+        time_after, byteCount_after = getStatics("00:00:00:00:00:00:00:03")
+        
+        print(time_prev, ", ",byteCount_prev)
+        print(time_after, ", ",byteCount_after)
 
         if (time_prev == 0 or time_after == 0 or byteCount_prev == 0 or byteCount_after == 0):
             print("error!!")
-
-
 
         time = time_after - time_prev
         byteCount = byteCount_after - byteCount_prev
