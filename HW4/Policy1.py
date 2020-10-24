@@ -215,13 +215,13 @@ def AutoRouting():
             break
 
         tp = byteCount * 8.0 / 1000000 / time
-        print("time duration: ", time)
-        print("h1 tp h3 throughput: ", (h1toh3_byteCount_after - h1toh3_byteCount_prev)*8.0/1000000, "Mbps")
-        print("h1 tp h4 throughput: ", (h1toh4_byteCount_after - h1toh4_byteCount_prev)*8.0/1000000, "Mbps")
-        print("total tp: ", tp)
+        print "time duration: ", time
+        print "h1 tp h3 throughput: ", (h1toh3_byteCount_after - h1toh3_byteCount_prev)*8.0/1000000, "Mbps"
+        print "h1 tp h4 throughput: ", (h1toh4_byteCount_after - h1toh4_byteCount_prev)*8.0/1000000, "Mbps"
+        print "total tp: ", tp
 
         if (not switch and tp > 90):
-            print("switch route")
+            print "switch route"
             S1toS2toS3()
             switch = True
 
