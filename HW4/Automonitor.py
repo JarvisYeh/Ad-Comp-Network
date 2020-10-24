@@ -1,6 +1,6 @@
-
+#!/usr/bin/python
 """
-@Student <Name/YE JIAWEI>
+@Student <YE JIAWEI/A0212246R>
 Date : Oct 24th
 """
 
