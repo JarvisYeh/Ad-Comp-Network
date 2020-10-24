@@ -1,0 +1,52 @@
+{
+    "flows": [
+        {
+            "priority": "1",
+            "durationNSeconds": "308000000",
+            "idleTimeoutSec": "0",
+            "flags": "1",
+            "durationSeconds": "1311",
+            "byteCount": "234112037",
+            "version": "OF_13",
+            "tableId": "0x0",
+            "packetCount": "19341",
+            "hardTimeoutSec": "0",
+            "cookie": "45035997263329048",
+            "match": {
+                "eth_type": "0x0x800",
+                "ipv4_src": "10.0.0.1",
+                "in_port": "1",
+                "ipv4_dst": "10.0.0.3"
+            },
+            "instructions": {
+                "instruction_apply_actions": {
+                    "actions": "output=3"
+                }
+            }
+        },
+        {
+            "priority": "1",
+            "durationNSeconds": "302000000",
+            "idleTimeoutSec": "0",
+            "flags": "1",
+            "durationSeconds": "1311",
+            "byteCount": "1234077",
+            "version": "OF_13",
+            "tableId": "0x0",
+            "packetCount": "18853",
+            "hardTimeoutSec": "0",
+            "cookie": "45035996932600632",
+            "match": {
+                "eth_type": "0x0x800",
+                "ipv4_src": "10.0.0.3",
+                "in_port": "3",
+                "ipv4_dst": "10.0.0.1"
+            },
+            "instructions": {
+                "instruction_apply_actions": {
+                    "actions": "output=1"
+                }
+            }
+        }
+    ]
+}
