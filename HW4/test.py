@@ -39,6 +39,6 @@ flowget = flowStat('127.0.0.1')
 
 if __name__ == '__main__':
     switching = 0
-    retData = flowget.get("00:00:00:00:00:00:00:03")
+    retData = flowget.get("00:00:00:00:00:00:00:01")
     print(retData)
     pass
