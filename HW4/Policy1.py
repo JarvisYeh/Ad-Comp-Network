@@ -189,6 +189,7 @@ def staticForwarding():
     pusher.set(S3Staticflow12)
 
 def AutoRouting():
+    switch = False
     while True:
         time_prev = 0
         time_after = 0
@@ -219,8 +220,11 @@ def AutoRouting():
         print("h1 tp h4 throughput: ", (h1toh4_byteCount_after - h1toh4_byteCount_prev)*8.0/1000000, "Mbps")
         print("total tp: ", tp)
 
-        if (tp > 90):
-            print("switch")
+        if (not switch and tp > 90):
+            print("switch route")
+            S1toS2toS3()
+            switch = True
+
 
 def S1toS2toS3():
     # H1->S1->S2->S3->H3/H4/H5
