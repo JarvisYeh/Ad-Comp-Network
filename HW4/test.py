@@ -81,9 +81,9 @@ if __name__ == '__main__':
         if (time_prev == 0 or time_after == 0 or byteCount_prev == 0 or byteCount_after == 0):
             print("error!!")
 
-        time = time_after - time_prev
-        byteCount = byteCount_after - byteCount_prev
-        tp = byteCount * 8 / 1000000 / time
+        time = int(time_after) - int(time_prev)
+        byteCount = int(byteCount_after) - int(byteCount_prev)
+        tp = byteCount * 8.0 / 1000000 / time
         print(time.time(), " throughput: ", tp, "Mbps")
 
     # print(retData)
