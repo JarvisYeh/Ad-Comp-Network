@@ -62,7 +62,8 @@ if __name__ == '__main__':
                 time_prev = myFlow['durationSeconds']
                 byteCount_prev = myFlow['byteCount']
         print('durationSeconds_prev: ', time_prev)
-        print('byteCount_prev: ', int(byteCount_prev)*8)
+        print('byteCount_prev: ', byteCount_prev)
+        print('byteCount_prev: ', int(byteCount_prev))
         t.sleep(1)
 
         retData = flowget.get("00:00:00:00:00:00:00:03")
