@@ -7,6 +7,7 @@ Date : Oct 24th
 import httplib
 import json
 
+
 class flowStat(object):
     def __init__(self, server):
         self.server = server
