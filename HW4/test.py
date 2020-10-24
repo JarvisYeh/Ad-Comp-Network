@@ -11,6 +11,7 @@ Date :
 
 import httplib
 import json
+import time
 class flowStat(object):
     def __init__(self, server):
         self.server = server
@@ -38,7 +39,10 @@ flowget = flowStat('127.0.0.1')
 
 
 if __name__ == '__main__':
+    start = time.time()
     switching = 0
     retData = flowget.get("00:00:00:00:00:00:00:01")
-    print(retData)
+    # print(retData)
+    end = time.time()
+    print(start - end)
     pass
