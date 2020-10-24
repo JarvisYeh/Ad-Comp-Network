@@ -49,7 +49,7 @@ if __name__ == '__main__':
         byteCount_after = 0
 
         retData = flowget.get("00:00:00:00:00:00:00:03")
-        myFlow = retData['flows']
+        myFlows = retData['flows']
         for myFlow in myFlows:
             myMatch = myFlow['match']
             if 'ipv4_src' not in myMatch:
