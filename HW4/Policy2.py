@@ -238,7 +238,7 @@ def reroute():
 
     myflow1 = {
         'switch': "00:00:00:00:00:00:00:01",
-        "name": "Alt1_h1toS2", "cookie": "0",
+        "name": "Alt_S1_h1toh4", "cookie": "0",
         "priority": "100",
         "eth_type": "0x0800",
         "ipv4_src": "10.0.0.1", "ipv4_dst": "10.0.0.4",
@@ -250,7 +250,7 @@ def reroute():
 
     myflow2 = {
         'switch': "00:00:00:00:00:00:00:01",
-        "name": "Alt1_h1toS2", "cookie": "0",
+        "name": "Alt_S1_h1toh5", "cookie": "0",
         "priority": "100",
         "eth_type": "0x0800",
         "ipv4_src": "10.0.0.1", "ipv4_dst": "10.0.0.5",
@@ -262,7 +262,7 @@ def reroute():
 
     myflow3 = {
         'switch': "00:00:00:00:00:00:00:02",
-        "name": "Alt1_S2toS3", "cookie": "0",
+        "name": "Alt_S2_h1toh4", "cookie": "0",
         "priority": "100",
         "eth_type": "0x0800",
         "ipv4_src": "10.0.0.1", "ipv4_dst": "10.0.0.4",
@@ -274,7 +274,7 @@ def reroute():
 
     myflow4 = {
         'switch': "00:00:00:00:00:00:00:02",
-        "name": "Alt1_S2toS3", "cookie": "0",
+        "name": "Alt_S2_h1toh5", "cookie": "0",
         "priority": "100",
         "eth_type": "0x0800",
         "ipv4_src": "10.0.0.1", "ipv4_dst": "10.0.0.5",
@@ -286,7 +286,7 @@ def reroute():
 
     myflow5 = {
         'switch': "00:00:00:00:00:00:00:03",
-        "name": "Alt1_S3toh3", "cookie": "0",
+        "name": "Alt_S3_h1toh4", "cookie": "0",
         "priority": "100",
         "eth_type": "0x0800",
         "ipv4_src": "10.0.0.1", "ipv4_dst": "10.0.0.4",
@@ -298,7 +298,7 @@ def reroute():
 
     myflow6 = {
         'switch': "00:00:00:00:00:00:00:03",
-        "name": "Alt1_S3toh3", "cookie": "0",
+        "name": "Alt_S3_h1toh5", "cookie": "0",
         "priority": "100",
         "eth_type": "0x0800",
         "ipv4_src": "10.0.0.1", "ipv4_dst": "10.0.0.5",
