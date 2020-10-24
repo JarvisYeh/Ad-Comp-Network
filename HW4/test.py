@@ -42,7 +42,7 @@ if __name__ == '__main__':
     
     switching = 0
     retData = flowget.get("00:00:00:00:00:00:00:03")
-    while (true):
+    while (True):
         time_prev = 0
         time_after = 0
         byteCount_prev = 0
