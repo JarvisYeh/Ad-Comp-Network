@@ -39,10 +39,52 @@ flowget = flowStat('127.0.0.1')
 
 
 if __name__ == '__main__':
-    start = time.time()
+    
     switching = 0
-    retData = flowget.get("00:00:00:00:00:00:00:01")
+    retData = flowget.get("00:00:00:00:00:00:00:03")
+    while (true):
+        time_prev = 0
+        time_after = 0
+        byteCount_prev = 0
+        byteCount_after = 0
+
+        retData = flowget.get("00:00:00:00:00:00:00:03")
+        myFlow = retData['flows']
+        for myFlow in myFlows:
+            myMatch = myFlow['match']
+            if 'ipv4_src' not in myMatch:
+                continue
+            if 'ipv4_dst' not in myMatch:
+                continue
+            ipSrc = myMatch['ipv4_src']
+            ipDst = myMatch['ipv4_dst']
+            if (ipSrc == "10.0.0.1") and (ipDst == "10.0.0.3"):
+                time_prev = myFlow['durationSeconds']
+                byteCount_prev = myFlow['byteCount']
+
+        time.sleep(1)
+
+        retData = flowget.get("00:00:00:00:00:00:00:03")
+        myFlow = retData['flows']
+        for myFlow in myFlows:
+            myMatch = myFlow['match']
+            if 'ipv4_src' not in myMatch:
+                continue
+            if 'ipv4_dst' not in myMatch:
+                continue
+            ipSrc = myMatch['ipv4_src']
+            ipDst = myMatch['ipv4_dst']
+            if (ipSrc == "10.0.0.1") and (ipDst == "10.0.0.3"):
+                time_after = myFlow['durationSeconds']
+                byteCount_after = myFlow['byteCount']
+
+        if (time_prev == 0 or time_after == 0 or byteCount_prev == 0 or byteCount_after == 0):
+            print("error!!")
+
+        time = time_after - time_prev
+        byteCount = byteCount_after - byteCount_prev
+        tp = byteCount * 8 / 1000000 / time
+        print(time.time(), " throughput: ", tp, "Mbps")
+
     # print(retData)
-    end = time.time()
-    print(start - end)
     pass
