@@ -87,11 +87,13 @@ if __name__ == '__main__':
 
 
 
-        time = int(time_after) - int(time_prev)
-        byteCount = int(byteCount_after) - int(byteCount_prev)
+        time = time_after - time_prev
+        byteCount = byteCount_after - byteCount_prev
 
         if (time == 0):
+            print("true")
             continue
+        
         tp = byteCount * 8.0 / 1000000 / time
         print(t.time(), " throughput: ", tp, "Mbps")
 
