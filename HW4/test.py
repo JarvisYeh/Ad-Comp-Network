@@ -75,7 +75,7 @@ if __name__ == '__main__':
         byteCount = byteCount_after - byteCount_prev
 
         if (time == 0):
-            print("error!")
+            print("error! difference between two time stamps obtained from mointor is 0!")
             break
 
         tp = byteCount * 8.0 / 1000000 / time
