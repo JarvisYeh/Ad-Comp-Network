@@ -1,42 +1,12 @@
-#!/usr/bin/python
-
-"""
-Ghozali, Oct 2020
-"""
 
 """
 @Student <Name/YE JIAWEI>
-Date : Oct 23rd
+Date : Oct 24th
 """
-
-
-
 
 import httplib
 import json
-class flowStat(object):
-    def __init__(self, server):
-        self.server = server
-
-    def get(self, switch):
-        ret = self.rest_call({}, 'GET', switch)
-        return json.loads(ret[2])
-
-    def rest_call(self, data, action, switch):
-        path = '/wm/core/switch/'+switch+"/flow/json"
-        headers = {
-            'Content-type': 'application/json',
-            'Accept': 'application/json',
-        }
-        body = json.dumps(data)
-        conn = httplib.HTTPConnection(self.server, 8080)
-        # print path
-        conn.request(action, path, body, headers)
-        response = conn.getresponse()
-        ret = (response.status, response.reason, response.read())
-        conn.close()
-        return ret
-
+import Automonitor as mon
 
 class StaticFlowPusher(object):
     def __init__(self, server):
@@ -71,64 +41,6 @@ class StaticFlowPusher(object):
 
 
 pusher = StaticFlowPusher('127.0.0.1')
-flowget = flowStat('127.0.0.1')
-
-
-def AutoRouting():
-    switching = 0
-    while (switching == 0):
-        retData = flowget.get("00:00:00:00:00:00:00:03")
-        myFlows = retData['flows']
-        for myFlow in myFlows:
-            myMatch = myFlow['match']
-            if 'ipv4_src' not in myMatch:
-                continue
-            if 'ipv4_dst' not in myMatch:
-                continue
-            ipSrc = myMatch['ipv4_src']
-            ipDst = myMatch['ipv4_dst']
-            if (ipSrc == "10.0.0.1") and (ipDst == "10.0.0.3"):
-                if (int(myFlow['byteCount']) >= 1000):
-                    S1toS2toS3()
-                    switching = 1
-
-
-def S1toS2toS3():
-    # H1->S1->S2->S3->H3/H4/H5
-    print('switching to H1 -> S1 -> S2 -> S3 -> H3')
-    myflow1 = {
-        'switch': "00:00:00:00:00:00:00:01",
-        "name": "Alt1_h1toS2", "cookie": "0",
-        "priority": "100",
-        "eth_type": "0x0800",
-        "ipv4_src": "10.0.0.1", "ipv4_dst": "10.0.0.3",
-        "active": "true",
-        "actions": "output=2"
-    }
-    pusher.set(myflow1)
-
-    myflow2 = {
-        'switch': "00:00:00:00:00:00:00:02",
-        "name": "Alt1_S2toS3", "cookie": "0",
-        "priority": "100",
-        "eth_type": "0x0800",
-        "ipv4_src": "10.0.0.1", "ipv4_dst": "10.0.0.3",
-        "active": "true",
-        "actions": "output=3"
-    }
-    pusher.set(myflow2)
-
-    myflow3 = {
-        'switch': "00:00:00:00:00:00:00:03",
-        "name": "Alt1_S3toh3", "cookie": "0",
-        "priority": "100",
-        "eth_type": "0x0800",
-        "ipv4_src": "10.0.0.1", "ipv4_dst": "10.0.0.3",
-        "active": "true",
-        "actions": "output=1"
-    }
-    pusher.set(myflow3)
-
 
 def staticForwarding():
     # Below 4 flows are for setting up the static forwarding for the path H1->S1->S2->H2 & vice-versa
@@ -275,9 +187,77 @@ def staticForwarding():
     pusher.set(S3Staticflow11)
     pusher.set(S3Staticflow12)
 
+def AutoRouting():
+    while True:
+        time_prev = 0
+        time_after = 0
+        h1toh3_byteCount_prev = 0
+        h1toh3_byteCount_after = 0
+        h1toh4_byteCount_prev = 0
+        h1toh4_byteCount_after = 0
+
+
+        time_prev, h1toh3_byteCount_prev, _ = mon.getStatics("00:00:00:00:00:00:00:03", "10.0.0.1", "10.0.0.3")
+        _, h1toh4_byteCount_prev, _ = mon.getStatics("00:00:00:00:00:00:00:03", "10.0.0.1", "10.0.0.4")      
+
+        t.sleep(1)
+
+        time_after, h1toh3_byteCount_after, _ = mon.getStatics("00:00:00:00:00:00:00:03", "10.0.0.1", "10.0.0.3")
+        _, h1toh4_byteCount_after, _ = mon.getStatics("00:00:00:00:00:00:00:03", "10.0.0.1", "10.0.0.4")     
+
+        time = time_after - time_prev
+        byteCount = h1toh3_byteCount_after - h1toh3_byteCount_prev + h1toh4_byteCount_after - h1toh4_byteCount_prev
+
+        if (time == 0):
+            print("error! difference between two time stamps obtained from mointor is 0!")
+            break
+
+        tp = byteCount * 8.0 / 1000000 / time
+        print("time duration: ", time)
+        print("h1 tp h3 throughput: ", (h1toh3_byteCount_after - h1toh3_byteCount_prev)*8.0/1000000, "Mbps")
+        print("h1 tp h4 throughput: ", (h1toh4_byteCount_after - h1toh4_byteCount_prev)*8.0/1000000, "Mbps")
+        print("total tp: ", tp)
+
+        if (tp > 90):
+            print("switch")
+
+def S1toS2toS3():
+    # H1->S1->S2->S3->H3/H4/H5
+    print('switching to H1 -> S1 -> S2 -> S3 -> H3')
+    myflow1 = {
+        'switch': "00:00:00:00:00:00:00:01",
+        "name": "Alt1_h1toS2", "cookie": "0",
+        "priority": "100",
+        "eth_type": "0x0800",
+        "ipv4_src": "10.0.0.1", "ipv4_dst": "10.0.0.3",
+        "active": "true",
+        "actions": "output=2"
+    }
+    pusher.set(myflow1)
+
+    myflow2 = {
+        'switch': "00:00:00:00:00:00:00:02",
+        "name": "Alt1_S2toS3", "cookie": "0",
+        "priority": "100",
+        "eth_type": "0x0800",
+        "ipv4_src": "10.0.0.1", "ipv4_dst": "10.0.0.3",
+        "active": "true",
+        "actions": "output=3"
+    }
+    pusher.set(myflow2)
+
+    myflow3 = {
+        'switch': "00:00:00:00:00:00:00:03",
+        "name": "Alt1_S3toh3", "cookie": "0",
+        "priority": "100",
+        "eth_type": "0x0800",
+        "ipv4_src": "10.0.0.1", "ipv4_dst": "10.0.0.3",
+        "active": "true",
+        "actions": "output=1"
+    }
+    pusher.set(myflow3)
 
 if __name__ == '__main__':
     staticForwarding()
-    
-    # AutoRouting()
+    AutoRouting()
     pass
