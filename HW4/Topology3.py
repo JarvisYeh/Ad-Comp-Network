@@ -49,11 +49,11 @@ def multiControllerNet():
     s2 = net.addSwitch( 'S2' )
     s3 = net.addSwitch( 'S3' )
     print "*** Creating hosts"
-    h1 = net.addHost('h1');
-    h2 = net.addHost('h2');
-    h3 = net.addHost('h3');
-    h4 = net.addHost('h4');
-    h5 = net.addHost('h5');
+    h1 = net.addHost('h1')
+    h2 = net.addHost('h2')
+    h3 = net.addHost('h3')
+    h4 = net.addHost('h4')
+    h5 = net.addHost('h5')
 
     print "*** Creating links"
     net.addLink(s1, h1)
