@@ -42,7 +42,7 @@ def getStatics(switch_id):
     time = 0
     byteCount = 0
 
-    retData = flowget.get(switch)
+    retData = flowget.get(switch_id)
     myFlows = retData['flows']
     for myFlow in myFlows:
         myMatch = myFlow['match']
@@ -70,7 +70,7 @@ if __name__ == '__main__':
         time_prev, byteCount_prev = getStatics("00:00:00:00:00:00:00:03")
         t.sleep(2)
         time_after, byteCount_after = getStatics("00:00:00:00:00:00:00:03")
-        
+
         print(time_prev, ", ",byteCount_prev)
         print(time_after, ", ",byteCount_after)
 
