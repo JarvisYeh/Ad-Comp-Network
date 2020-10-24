@@ -63,7 +63,7 @@ if __name__ == '__main__':
                 byteCount_prev = int(myFlow['byteCount'])
 
         print('durationSeconds_prev: ', time_prev)
-        t.sleep(1)
+        t.sleep(2)
 
         retData = flowget.get("00:00:00:00:00:00:00:03")
         myFlow = retData['flows']
@@ -93,7 +93,7 @@ if __name__ == '__main__':
         if (time == 0):
             print("true")
             continue
-        
+
         tp = byteCount * 8.0 / 1000000 / time
         print(t.time(), " throughput: ", tp, "Mbps")
 
