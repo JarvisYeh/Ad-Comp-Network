@@ -222,7 +222,7 @@ def AutoRouting():
 
         if (not switch and tp > 90):
             print("switch route")
-            S1toS2toS3()
+            # S1toS2toS3()
             switch = True
 
 
@@ -236,6 +236,7 @@ def S1toS2toS3():
         "eth_type": "0x0800",
         "ipv4_src": "10.0.0.1", "ipv4_dst": "10.0.0.3",
         "active": "true",
+        "in_port": "1",
         "actions": "output=2"
     }
     pusher.set(myflow1)
@@ -247,6 +248,7 @@ def S1toS2toS3():
         "eth_type": "0x0800",
         "ipv4_src": "10.0.0.1", "ipv4_dst": "10.0.0.3",
         "active": "true",
+        "in_port": "2",
         "actions": "output=3"
     }
     pusher.set(myflow2)
@@ -258,6 +260,7 @@ def S1toS2toS3():
         "eth_type": "0x0800",
         "ipv4_src": "10.0.0.1", "ipv4_dst": "10.0.0.3",
         "active": "true",
+        "in_port": "5",
         "actions": "output=1"
     }
     pusher.set(myflow3)
