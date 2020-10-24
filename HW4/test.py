@@ -11,7 +11,7 @@ Date :
 
 import httplib
 import json
-import time
+import time as t
 class flowStat(object):
     def __init__(self, server):
         self.server = server
@@ -62,7 +62,7 @@ if __name__ == '__main__':
                 time_prev = myFlow['durationSeconds']
                 byteCount_prev = myFlow['byteCount']
 
-        time.sleep(1)
+        t.sleep(1)
 
         retData = flowget.get("00:00:00:00:00:00:00:03")
         myFlow = retData['flows']
@@ -87,7 +87,7 @@ if __name__ == '__main__':
         if (time == 0):
             continue
         tp = byteCount * 8.0 / 1000000 / time
-        print(time.time(), " throughput: ", tp, "Mbps")
+        print(t.time(), " throughput: ", tp, "Mbps")
 
     # print(retData)
     pass
