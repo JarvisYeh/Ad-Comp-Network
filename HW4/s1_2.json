@@ -1,1 +1,215 @@
-{u'flows': [{u'priority': u'1', u'durationNSeconds': u'525000000', u'idleTimeoutSec': u'0', u'flags': u'1', u'durationSeconds': u'811', u'byteCount': u'0', u'version': u'OF_13', u'tableId': u'0x0', u'packetCount': u'0', u'hardTimeoutSec': u'0', u'cookie': u'45035997263329047', u'match': {u'eth_type': u'0x0x800', u'ipv4_src': u'10.0.0.1', u'in_port': u'1', u'ipv4_dst': u'10.0.0.2'}, u'instructions': {u'instruction_apply_actions': {u'actions': u'output=2'}}}, {u'priority': u'1', u'durationNSeconds': u'516000000', u'idleTimeoutSec': u'0', u'flags': u'1', u'durationSeconds': u'811', u'byteCount': u'0', u'version': u'OF_13', u'tableId': u'0x0', u'packetCount': u'0', u'hardTimeoutSec': u'0', u'cookie': u'45035999245448487', u'match': {u'eth_type': u'0x0x800', u'ipv4_src': u'10.0.0.2', u'in_port': u'2', u'ipv4_dst': u'10.0.0.1'}, u'instructions': {u'instruction_apply_actions': {u'actions': u'output=1'}}}, {u'priority': u'1', u'durationNSeconds': u'496000000', u'idleTimeoutSec': u'0', u'flags': u'1', u'durationSeconds': u'811', u'byteCount': u'115024888', u'version': u'OF_13', u'tableId': u'0x0', u'packetCount': u'9749', u'hardTimeoutSec': u'0', u'cookie': u'45035997263329048', u'match': {u'eth_type': u'0x0x800', u'ipv4_src': u'10.0.0.1', u'in_port': u'1', u'ipv4_dst': u'10.0.0.3'}, u'instructions': {u'instruction_apply_actions': {u'actions': u'output=3'}}}, {u'priority': u'1', u'durationNSeconds': u'490000000', u'idleTimeoutSec': u'0', u'flags': u'1', u'durationSeconds': u'811', u'byteCount': u'615298', u'version': u'OF_13', u'tableId': u'0x0', u'packetCount': u'9391', u'hardTimeoutSec': u'0', u'cookie': u'45035996932600632', u'match': {u'eth_type': u'0x0x800', u'ipv4_src': u'10.0.0.3', u'in_port': u'3', u'ipv4_dst': u'10.0.0.1'}, u'instructions': {u'instruction_apply_actions': {u'actions': u'output=1'}}}, {u'priority': u'1', u'durationNSeconds': u'484000000', u'idleTimeoutSec': u'0', u'flags': u'1', u'durationSeconds': u'811', u'byteCount': u'0', u'version': u'OF_13', u'tableId': u'0x0', u'packetCount': u'0', u'hardTimeoutSec': u'0', u'cookie': u'45035997263329049', u'match': {u'eth_type': u'0x0x800', u'ipv4_src': u'10.0.0.1', u'in_port': u'1', u'ipv4_dst': u'10.0.0.4'}, u'instructions': {u'instruction_apply_actions': {u'actions': u'output=3'}}}, {u'priority': u'1', u'durationNSeconds': u'478000000', u'idleTimeoutSec': u'0', u'flags': u'1', u'durationSeconds': u'811', u'byteCount': u'0', u'version': u'OF_13', u'tableId': u'0x0', u'packetCount': u'0', u'hardTimeoutSec': u'0', u'cookie': u'45035998914720073', u'match': {u'eth_type': u'0x0x800', u'ipv4_src': u'10.0.0.4', u'in_port': u'3', u'ipv4_dst': u'10.0.0.1'}, u'instructions': {u'instruction_apply_actions': {u'actions': u'output=1'}}}, {u'priority': u'1', u'durationNSeconds': u'466000000', u'idleTimeoutSec': u'0', u'flags': u'1', u'durationSeconds': u'811', u'byteCount': u'0', u'version': u'OF_13', u'tableId': u'0x0', u'packetCount': u'0', u'hardTimeoutSec': u'0', u'cookie': u'45035997263329050', u'match': {u'eth_type': u'0x0x800', u'ipv4_src': u'10.0.0.1', u'in_port': u'1', u'ipv4_dst': u'10.0.0.5'}, u'instructions': {u'instruction_apply_actions': {u'actions': u'output=3'}}}, {u'priority': u'1', u'durationNSeconds': u'463000000', u'idleTimeoutSec': u'0', u'flags': u'1', u'durationSeconds': u'811', u'byteCount': u'0', u'version': u'OF_13', u'tableId': u'0x0', u'packetCount': u'0', u'hardTimeoutSec': u'0', u'cookie': u'45035996601872218', u'match': {u'eth_type': u'0x0x800', u'ipv4_src': u'10.0.0.5', u'in_port': u'3', u'ipv4_dst': u'10.0.0.1'}, u'instructions': {u'instruction_apply_actions': {u'actions': u'output=1'}}}, {u'priority': u'0', u'durationNSeconds': u'481000000', u'idleTimeoutSec': u'0', u'flags': u'0', u'durationSeconds': u'866', u'byteCount': u'9864', u'version': u'OF_13', u'tableId': u'0x0', u'packetCount': u'132', u'hardTimeoutSec': u'0', u'cookie': u'0', u'match': {}, u'instructions': {u'instruction_apply_actions': {u'actions': u'output=controller'}}}]}
+{
+    "flows": [
+        {
+            "priority": "1",
+            "durationNSeconds": "525000000",
+            "idleTimeoutSec": "0",
+            "flags": "1",
+            "durationSeconds": "811",
+            "byteCount": "0",
+            "version": "OF_13",
+            "tableId": "0x0",
+            "packetCount": "0",
+            "hardTimeoutSec": "0",
+            "cookie": "45035997263329047",
+            "match": {
+                "eth_type": "0x0x800",
+                "ipv4_src": "10.0.0.1",
+                "in_port": "1",
+                "ipv4_dst": "10.0.0.2"
+            },
+            "instructions": {
+                "instruction_apply_actions": {
+                    "actions": "output=2"
+                }
+            }
+        },
+        {
+            "priority": "1",
+            "durationNSeconds": "516000000",
+            "idleTimeoutSec": "0",
+            "flags": "1",
+            "durationSeconds": "811",
+            "byteCount": "0",
+            "version": "OF_13",
+            "tableId": "0x0",
+            "packetCount": "0",
+            "hardTimeoutSec": "0",
+            "cookie": "45035999245448487",
+            "match": {
+                "eth_type": "0x0x800",
+                "ipv4_src": "10.0.0.2",
+                "in_port": "2",
+                "ipv4_dst": "10.0.0.1"
+            },
+            "instructions": {
+                "instruction_apply_actions": {
+                    "actions": "output=1"
+                }
+            }
+        },
+        {
+            "priority": "1",
+            "durationNSeconds": "496000000",
+            "idleTimeoutSec": "0",
+            "flags": "1",
+            "durationSeconds": "811",
+            "byteCount": "115024888",
+            "version": "OF_13",
+            "tableId": "0x0",
+            "packetCount": "9749",
+            "hardTimeoutSec": "0",
+            "cookie": "45035997263329048",
+            "match": {
+                "eth_type": "0x0x800",
+                "ipv4_src": "10.0.0.1",
+                "in_port": "1",
+                "ipv4_dst": "10.0.0.3"
+            },
+            "instructions": {
+                "instruction_apply_actions": {
+                    "actions": "output=3"
+                }
+            }
+        },
+        {
+            "priority": "1",
+            "durationNSeconds": "490000000",
+            "idleTimeoutSec": "0",
+            "flags": "1",
+            "durationSeconds": "811",
+            "byteCount": "615298",
+            "version": "OF_13",
+            "tableId": "0x0",
+            "packetCount": "9391",
+            "hardTimeoutSec": "0",
+            "cookie": "45035996932600632",
+            "match": {
+                "eth_type": "0x0x800",
+                "ipv4_src": "10.0.0.3",
+                "in_port": "3",
+                "ipv4_dst": "10.0.0.1"
+            },
+            "instructions": {
+                "instruction_apply_actions": {
+                    "actions": "output=1"
+                }
+            }
+        },
+        {
+            "priority": "1",
+            "durationNSeconds": "484000000",
+            "idleTimeoutSec": "0",
+            "flags": "1",
+            "durationSeconds": "811",
+            "byteCount": "0",
+            "version": "OF_13",
+            "tableId": "0x0",
+            "packetCount": "0",
+            "hardTimeoutSec": "0",
+            "cookie": "45035997263329049",
+            "match": {
+                "eth_type": "0x0x800",
+                "ipv4_src": "10.0.0.1",
+                "in_port": "1",
+                "ipv4_dst": "10.0.0.4"
+            },
+            "instructions": {
+                "instruction_apply_actions": {
+                    "actions": "output=3"
+                }
+            }
+        },
+        {
+            "priority": "1",
+            "durationNSeconds": "478000000",
+            "idleTimeoutSec": "0",
+            "flags": "1",
+            "durationSeconds": "811",
+            "byteCount": "0",
+            "version": "OF_13",
+            "tableId": "0x0",
+            "packetCount": "0",
+            "hardTimeoutSec": "0",
+            "cookie": "45035998914720073",
+            "match": {
+                "eth_type": "0x0x800",
+                "ipv4_src": "10.0.0.4",
+                "in_port": "3",
+                "ipv4_dst": "10.0.0.1"
+            },
+            "instructions": {
+                "instruction_apply_actions": {
+                    "actions": "output=1"
+                }
+            }
+        },
+        {
+            "priority": "1",
+            "durationNSeconds": "466000000",
+            "idleTimeoutSec": "0",
+            "flags": "1",
+            "durationSeconds": "811",
+            "byteCount": "0",
+            "version": "OF_13",
+            "tableId": "0x0",
+            "packetCount": "0",
+            "hardTimeoutSec": "0",
+            "cookie": "45035997263329050",
+            "match": {
+                "eth_type": "0x0x800",
+                "ipv4_src": "10.0.0.1",
+                "in_port": "1",
+                "ipv4_dst": "10.0.0.5"
+            },
+            "instructions": {
+                "instruction_apply_actions": {
+                    "actions": "output=3"
+                }
+            }
+        },
+        {
+            "priority": "1",
+            "durationNSeconds": "463000000",
+            "idleTimeoutSec": "0",
+            "flags": "1",
+            "durationSeconds": "811",
+            "byteCount": "0",
+            "version": "OF_13",
+            "tableId": "0x0",
+            "packetCount": "0",
+            "hardTimeoutSec": "0",
+            "cookie": "45035996601872218",
+            "match": {
+                "eth_type": "0x0x800",
+                "ipv4_src": "10.0.0.5",
+                "in_port": "3",
+                "ipv4_dst": "10.0.0.1"
+            },
+            "instructions": {
+                "instruction_apply_actions": {
+                    "actions": "output=1"
+                }
+            }
+        },
+        {
+            "priority": "0",
+            "durationNSeconds": "481000000",
+            "idleTimeoutSec": "0",
+            "flags": "0",
+            "durationSeconds": "866",
+            "byteCount": "9864",
+            "version": "OF_13",
+            "tableId": "0x0",
+            "packetCount": "132",
+            "hardTimeoutSec": "0",
+            "cookie": "0",
+            "match": {},
+            "instructions": {
+                "instruction_apply_actions": {
+                    "actions": "output=controller"
+                }
+            }
+        }
+    ]
+}
