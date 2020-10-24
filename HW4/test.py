@@ -38,10 +38,10 @@ class flowStat(object):
 flowget = flowStat('127.0.0.1')
 
 
+def getStatics(switch_id):
+
+
 if __name__ == '__main__':
-    
-    switching = 0
-    retData = flowget.get("00:00:00:00:00:00:00:03")
     while (True):
         time_prev = 0
         time_after = 0
