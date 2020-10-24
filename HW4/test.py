@@ -68,7 +68,7 @@ if __name__ == '__main__':
         byteCount_after = 0
 
         time_prev, byteCount_prev = getStatics("00:00:00:00:00:00:00:03")
-        t.sleep(0.5)
+        t.sleep(1)
         time_after, byteCount_after = getStatics("00:00:00:00:00:00:00:03")
 
         time = time_after - time_prev
