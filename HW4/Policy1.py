@@ -188,7 +188,7 @@ def staticForwarding():
     pusher.set(S3Staticflow11)
     pusher.set(S3Staticflow12)
 
-def AutoRouting():
+def autoRouting():
     switch = False
     while True:
         time_prev = 0
@@ -222,11 +222,11 @@ def AutoRouting():
 
         if (not switch and tp > 90):
             print "switch route"
-            S1toS2toS3()
+            reroute()
             switch = True
 
 
-def S1toS2toS3():
+def reroute():
     # H1->S1->S2->S3->H3/H4/H5
     print('switching to H1 -> S1 -> S2 -> S3 -> H3')
     myflow1 = {
@@ -267,5 +267,5 @@ def S1toS2toS3():
 
 if __name__ == '__main__':
     staticForwarding()
-    AutoRouting()
+    autoRouting()
     pass
