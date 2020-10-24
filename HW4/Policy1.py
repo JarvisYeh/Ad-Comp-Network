@@ -222,7 +222,7 @@ def AutoRouting():
 
         if (not switch and tp > 90):
             print("switch route")
-            # S1toS2toS3()
+            S1toS2toS3()
             switch = True
 
 
